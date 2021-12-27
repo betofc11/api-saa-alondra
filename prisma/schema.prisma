@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model vecino {
+  idvecino        Int       @id @default(autoincrement())
+  nombre          String    @db.VarChar(45)
+  primerapellido  String    @db.VarChar(45)
+  segundoapellido String?   @db.VarChar(45)
+  cedula          String    @unique(map: "cedula") @db.VarChar(9)
+  fallecido       Int       @default(0) @db.TinyInt
+  fechanac        DateTime? @db.Date
+  casa            Int?
+  email           String?   @db.VarChar(100)
+  telefono        String?   @db.VarChar(8)
+  trabaja         Int       @default(0) @db.TinyInt
+}
