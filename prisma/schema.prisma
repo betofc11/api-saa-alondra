@@ -7,27 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model vecino {
-  idvecino        Int           @id @default(autoincrement())
-  nombre          String        @db.VarChar(45)
-  primerapellido  String        @db.VarChar(45)
-  segundoapellido String?       @db.VarChar(45)
-  cedula          String        @unique(map: "cedula") @db.VarChar(9)
-  fallecido       Int           @default(0) @db.TinyInt
-  fechanac        DateTime?     @db.Date
-  idcasa          Int?
-  email           String?       @db.VarChar(100)
-  telefono        String?       @db.VarChar(8)
-  trabaja         Int           @default(0) @db.TinyInt
-  vecino_casa     vecino_casa[]
-}
-
 model casa {
-  idcasa      Int           @id @default(autoincrement())
-  nombre      String        @db.VarChar(100)
-  idregion    Int?
-  region      region?       @relation(fields: [idregion], references: [idregion], onDelete: Restrict, onUpdate: Restrict, map: "casa_ibfk_1")
-  vecino_casa vecino_casa[]
+  idcasa   Int      @id @default(autoincrement())
+  nombre   String   @db.VarChar(100)
+  telefono String?  @db.VarChar(8)
+  idregion Int?
+  region   region?  @relation(fields: [idregion], references: [idregion], onDelete: Restrict, onUpdate: Restrict, map: "casa_ibfk_1")
+  vecino   vecino[]
 
   @@index([idregion], map: "idregion")
 }
@@ -38,13 +24,19 @@ model region {
   casa     casa[]
 }
 
-model vecino_casa {
-  id       Int    @id @default(autoincrement())
-  idvecino Int
-  idcasa   Int
-  casa     casa   @relation(fields: [idcasa], references: [idcasa], onUpdate: Restrict, map: "vecino_casa_ibfk_1")
-  vecino   vecino @relation(fields: [idvecino], references: [idvecino], onUpdate: Restrict, map: "vecino_casa_ibfk_2")
+model vecino {
+  idvecino        Int       @id @default(autoincrement())
+  nombre          String    @db.VarChar(45)
+  primerapellido  String    @db.VarChar(45)
+  segundoapellido String?   @db.VarChar(45)
+  cedula          String    @unique(map: "cedula") @db.VarChar(9)
+  fallecido       Int       @default(0) @db.TinyInt
+  fechanac        DateTime? @db.Date
+  idcasa          Int?
+  email           String?   @db.VarChar(100)
+  telefono        String?   @db.VarChar(8)
+  trabaja         Int       @default(0) @db.TinyInt
+  casa            casa?     @relation(fields: [idcasa], references: [idcasa], onDelete: Restrict, onUpdate: Restrict, map: "vecino_ibfk_1")
 
   @@index([idcasa], map: "idcasa")
-  @@index([idvecino], map: "idvecino")
 }

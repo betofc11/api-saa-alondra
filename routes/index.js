@@ -11,5 +11,7 @@ module.exports = () => {
 
     router.get('/vecinos/getById/:id', vecinosController.obtieneVecinoById);
 
+    router.get('/vecinos/getByRegion/:idregion', vecinosController.obtieneVecinosByRegion);
+
     return router;
 }

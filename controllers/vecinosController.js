@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const { PrismaClient } = require('@prisma/client');
+const { type } = require('express/lib/response');
 
 const prisma = new PrismaClient();
 
@@ -79,6 +80,60 @@ exports.obtieneVecinoById = async(req, res, next) => {
             }
         });
         res.json(vecino);
+
+    }catch(e){
+        console.log(e.message);
+        res.json({mensaje: "Ocurrio un error: "+e.message});
+        next();
+    }
+}
+
+exports.obtieneVecinosByCasa = async(req, res, next) => {
+    try {
+        const id = parseInt(req.params.idcasa);
+        const vecino = await prisma.vecino.findMany({
+            where: {
+                idcasa: id
+            }
+        });
+        res.json(vecino);
+
+    }catch(e){
+        console.log(e.message);
+        res.json({mensaje: "Ocurrio un error: "+e.message});
+        next();
+    }
+}
+
+exports.obtieneVecinosByRegion = async(req, res, next) => {
+    try {
+        const id = parseInt(req.params.idregion);
+        const casas = await prisma.casa.findMany({
+            where: {
+                idregion: id
+            }
+        });
+
+        let listCasas = [];
+        let vecinos = [];
+        
+
+        for (const list of casas){
+            listCasas.push(list.idcasa);
+        }
+
+        for (const list of listCasas){
+            const a = await prisma.vecino.findMany({
+                where: {
+                    idcasa: list
+                }
+            });
+            for (const b of a){
+                vecinos.push(b);
+            }
+        }
+
+        res.json(vecinos);
 
     }catch(e){
         console.log(e.message);
