@@ -42,7 +42,7 @@ exports.agregaVecino = async (req, res, next) => {
                     cedula: cedula,
                     fallecido: fallecido,
                     fechanac: fechanac,
-                    casa: casa,
+                    idcasa: casa,
                     email: email,
                     trabaja: trabaja,
                     telefono: telefono
@@ -53,20 +53,36 @@ exports.agregaVecino = async (req, res, next) => {
 
     }catch(e){
         console.log(e.message);
-        res.json({mensaje: "Ocurrio un error"+e.message});
+        res.json({mensaje: "Ocurrio un error: "+e.message});
         next();
     }
 }
 
 exports.obtieneVecinos = async (req, res, next) => {
     try {
-
         const vecino = await prisma.vecino.findMany();
         res.json(vecino);
 
     }catch(e){
         console.log(e.message);
-        res.json({mensaje: "Ocurrio un error"+e.message});
+        res.json({mensaje: "Ocurrio un error: "+e.message});
+        next();
+    }
+}
+
+exports.obtieneVecinoById = async(req, res, next) => {
+    try {
+        const id = parseInt(req.params.id);
+        const vecino = await prisma.vecino.findUnique({
+            where: {
+                idvecino: id
+            }
+        });
+        res.json(vecino);
+
+    }catch(e){
+        console.log(e.message);
+        res.json({mensaje: "Ocurrio un error: "+e.message});
         next();
     }
 }
