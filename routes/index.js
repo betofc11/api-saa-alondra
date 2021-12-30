@@ -5,9 +5,9 @@ const vecinosController = require('../controllers/vecinosController');
 
 module.exports = () => {
 
-    router.post('/vecinos/agregaVecino', vecinosController.agregaVecino);
+    router.post('/vecinos/agregaVecino/', vecinosController.agregaVecino);
 
-    router.get('/vecinos', vecinosController.obtieneVecinos);
+    router.get('/vecinos/', vecinosController.obtieneVecinos);
 
     router.get('/vecinos/getById/:id', vecinosController.obtieneVecinoById);
 
