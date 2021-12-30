@@ -7,6 +7,10 @@ module.exports = () => {
 
     router.post('/vecinos/agregaVecino/', vecinosController.agregaVecino);
 
+    router.put('/vecinos/editaVecino/', vecinosController.editaVecino);
+
+    router.delete('/vecinos/eliminaVecino/:id', vecinosController.eliminaVecino);
+
     router.get('/vecinos/', vecinosController.obtieneVecinos);
 
     router.get('/vecinos/getById/:id', vecinosController.obtieneVecinoById);

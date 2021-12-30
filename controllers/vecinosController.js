@@ -6,8 +6,7 @@ const prisma = new PrismaClient();
 
 exports.agregaVecino = async (req, res, next) => {
     try {
-        let {
-            nombre, primerapellido, segundoapellido, cedula, fallecido, fechanac, casa, email, trabaja, telefono, vecinoslist } = req.body;
+        let { nombre, primerapellido, segundoapellido, cedula, fallecido, fechanac, casa, email, trabaja, telefono, vecinoslist } = req.body;
         if (!!vecinoslist) {
             const vecino = await prisma.vecino.createMany({
                 data: vecinoslist
@@ -31,8 +30,60 @@ exports.agregaVecino = async (req, res, next) => {
             });
             res.json(vecino);
         } else {
+            next();
             throw 'ERROR';
         }
+    } catch (e) {
+        console.log(e.message);
+        res.json({ mensaje: "Ocurrio un error: " + e.message });
+        next();
+    }
+}
+
+exports.editaVecino = async (req, res, next) => {
+    try {
+        const { idvecino, nombre, primerapellido, segundoapellido, cedula, fallecido, fechanac, casa, email, trabaja, telefono, vecinoslist } = req.body;
+
+        if (!!vecinoslist) {
+            let result = [];
+
+            for (const vecino of vecinoslist) {
+                const vecinosedited = await prisma.vecino.update({
+                    where: {
+                        idvecino: vecino.idvecino
+                    },
+                    data: vecino
+                });
+                result.push(vecinosedited);
+            }
+
+            res.json(result);
+
+        } else if (idvecino != null && fallecido != null && casa != null && trabaja != null && nombre != null && primerapellido != null && cedula != null) {
+            const vecinoedited = await prisma.vecino.update({
+                where: {
+                    idvecino: idvecino
+                },
+                data: {
+                    nombre: nombre,
+                    primerapellido: primerapellido,
+                    segundoapellido: segundoapellido,
+                    cedula: cedula,
+                    fallecido: fallecido,
+                    fechanac: fechanac,
+                    idcasa: casa,
+                    email: email,
+                    trabaja: trabaja,
+                    telefono: telefono
+                }
+            });
+
+            res.json(vecinoedited);
+        } else {
+            next();
+            throw "ERROR";
+        }
+
     } catch (e) {
         console.log(e.message);
         res.json({ mensaje: "Ocurrio un error: " + e.message });
@@ -107,6 +158,22 @@ exports.obtieneVecinosByRegion = async (req, res, next) => {
             }
         }
         res.json(vecinos);
+    } catch (e) {
+        console.log(e.message);
+        res.json({ mensaje: "Ocurrio un error: " + e.message });
+        next();
+    }
+}
+
+exports.eliminaVecino = async (req, res, next) =>{
+    try {
+        const id = parseInt(req.params.id);
+        const vecino = await prisma.vecino.delete({
+            where: {
+                idvecino: id
+            }
+        });
+        res.json(vecino);
     } catch (e) {
         console.log(e.message);
         res.json({ mensaje: "Ocurrio un error: " + e.message });
