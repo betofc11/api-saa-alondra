@@ -19,3 +19,5 @@ module.exports = () => {
 
     return router;
 }
+
+//mysql://badcfd9f3811c9:fa08121e@us-cdbr-east-05.cleardb.net/heroku_8aa0c53a443cbde?reconnect=true
