@@ -35,6 +35,16 @@ module.exports = () => {
     // CASAS METHODS -------------------------------------------------
     router.get('/casas/', casasController.obtieneCasas);
 
+    router.get('/casas/:id', casasController.obtieneCasaById);
+
+    router.post('/casas/', casasController.agregaCasa);
+
+    router.put('/casas/', casasController.editaCasa);
+
+    router.delete('/casas/:idcasa', casasController.eliminaCasa);
+
+    
+
 
 
     return router;
