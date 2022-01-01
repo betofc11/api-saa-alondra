@@ -78,7 +78,7 @@ exports.editaRegion = async (req, res, next) => {
 
 exports.eliminaRegion = async (req, res, next) => {
     try {
-        const id = req.params.idregion;
+        const id = parseInt(req.params.idregion);
         const region = await prisma.region.delete({ 
             where:{
                 idregion: id

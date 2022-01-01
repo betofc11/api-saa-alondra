@@ -3,6 +3,8 @@ const router = express.Router();
 
 const vecinosController = require('../controllers/vecinosController');
 const regionesController = require('../controllers/regionesController');
+const casasController = require('../controllers/casasController');
+
 module.exports = () => {
 
     // VECINOS METHODS ----------------------------------------------
@@ -29,6 +31,11 @@ module.exports = () => {
     router.put('/regiones/', regionesController.editaRegion);
 
     router.delete('/regiones/:idregion', regionesController.eliminaRegion);
+
+    // CASAS METHODS -------------------------------------------------
+    router.get('/casas/', casasController.obtieneCasas);
+
+
 
     return router;
 }
