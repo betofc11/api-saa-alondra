@@ -107,6 +107,7 @@ exports.iniciaSesion = async (req, res, next) => {
             nombre: userFound.nombre,
             primerapellido: userFound.primerapellido,
             segundoapellido: userFound.segundoapellido,
+            admin: !!userFound.admin,
             token: token
         })
         : res.status(401).send("Usuario o contraseña invalidos");
