@@ -95,6 +95,7 @@ exports.iniciaSesion = async (req, res, next) => {
             primerapellido: userFound.primerapellido,
             segundoapellido: userFound.segundoapellido,
             usuario: usuario,
+            admin: !!userFound.admin,
             email: userFound.email,
             telefono: userFound.telefono
         },
