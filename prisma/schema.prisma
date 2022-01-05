@@ -43,7 +43,7 @@ model vecino {
 
 model usuario {
   idusuario       Int     @id @default(autoincrement())
-  usuario         String  @db.VarChar(45)
+  usuario         String  @unique(map: "usuario_UNIQUE") @db.VarChar(45)
   nombre          String  @db.VarChar(45)
   primerapellido  String  @db.VarChar(45)
   segundoapellido String? @db.VarChar(45)

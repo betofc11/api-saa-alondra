@@ -4,6 +4,7 @@ const router = express.Router();
 const vecinosController = require('../controllers/vecinosController');
 const regionesController = require('../controllers/regionesController');
 const casasController = require('../controllers/casasController');
+const usuariosController = require('../controllers/usuariosController');
 
 module.exports = () => {
 
@@ -44,7 +45,13 @@ module.exports = () => {
     router.delete('/casas/:idcasa', casasController.eliminaCasa);
 
     
+    // USUARIOS METHODS -------------------------------------------
 
+    router.get('/usuarios/', usuariosController.obtieneUsuarios);
+    router.get('/usuarios/:id', usuariosController.obtieneUsuarioById);
+    router.post('/usuarios/', usuariosController.creaUsuario);
+    router.post('/usuarios/login', usuariosController.iniciaSesion);
+    router.delete('/usuarios/:id', usuariosController.eliminaUsuario);
 
 
     return router;
