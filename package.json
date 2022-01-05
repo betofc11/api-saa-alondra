@@ -23,6 +23,7 @@
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
     "prisma": "^3.7.0"
   },
   "devDependencies": {

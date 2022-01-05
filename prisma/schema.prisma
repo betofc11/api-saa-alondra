@@ -40,3 +40,15 @@ model vecino {
 
   @@index([idcasa], map: "idcasa")
 }
+
+model usuario {
+  idusuario       Int     @id @default(autoincrement())
+  usuario         String  @db.VarChar(45)
+  nombre          String  @db.VarChar(45)
+  primerapellido  String  @db.VarChar(45)
+  segundoapellido String? @db.VarChar(45)
+  password        String  @db.Char(60)
+  admin           Int     @default(0) @db.TinyInt
+  email           String? @db.VarChar(100)
+  telefono        String? @db.VarChar(8)
+}
