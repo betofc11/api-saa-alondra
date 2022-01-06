@@ -48,36 +48,41 @@ exports.obtieneUsuarioById = async (req, res, next) => {
 
 exports.creaUsuario = async (req, res, next) => {
   try {
-    const {
-      usuario,
-      nombre,
-      primerapellido,
-      segundoapellido,
-      admin,
-      telefono,
-      password,
-      confirmedPassword,
-      email,
-    } = req.body;
-    const passwordHashed =
-      password === confirmedPassword
+    const token = req.headers.authorization.split(" ")[1];
+    const isverify = verifyToken(token);
+    if (isverify) {
+      const {
+        usuario,
+        nombre,
+        primerapellido,
+        segundoapellido,
+        admin,
+        telefono,
+        password,
+        confirmedPassword,
+        email,
+      } = req.body;
+      const passwordHashed = password === confirmedPassword
         ? await bcrypt.hash(password, 10)
         : {
           error: "Password or username incorrect",
         };
-    const usuarioInserted = await prisma.usuario.create({
-      data: {
-        usuario: usuario,
-        nombre: nombre,
-        primerapellido: primerapellido,
-        segundoapellido: segundoapellido,
-        password: passwordHashed,
-        admin: admin,
-        email: email,
-        telefono: telefono,
-      },
-    });
-    res.json(usuarioInserted);
+      const usuarioInserted = await prisma.usuario.create({
+        data: {
+          usuario: usuario,
+          nombre: nombre,
+          primerapellido: primerapellido,
+          segundoapellido: segundoapellido,
+          password: passwordHashed,
+          admin: admin,
+          email: email,
+          telefono: telefono,
+        },
+      });
+      res.json(usuarioInserted);
+    } else {
+      res.status(401).send({ error: "Ocurrio un error de autenticacion" });
+    }
   } catch (e) {
     console.error(e);
     res.status(401).send(e.message);
@@ -97,7 +102,7 @@ exports.eliminaUsuario = async (req, res, next) => {
         },
       });
       res.status(200).send(usuario);
-    }else {
+    } else {
       res.status(401).send({ error: "Ocurrio un error de autenticacion" });
     }
   } catch (e) {
