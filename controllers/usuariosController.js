@@ -141,7 +141,7 @@ exports.iniciaSesion = async (req, res, next) => {
 exports.veryfyLogin = async (req, res, next) => {
   try {
     const { token } = req.body;
-    const isverify = await verifyToken(token);
+    const isverify =  verifyToken(token);
     isverify ? res.status(200).send({ status: true }) : res.status(403).send({ status: false });
   } catch (e) {
     console.error(e);
