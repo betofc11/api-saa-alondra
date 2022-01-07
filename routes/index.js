@@ -51,6 +51,7 @@ module.exports = () => {
     router.get('/usuarios/:id', usuariosController.obtieneUsuarioById);
     router.post('/usuarios/', usuariosController.creaUsuario);
     router.post('/usuarios/login', usuariosController.iniciaSesion);
+    router.post('/usuarios/islogged', usuariosController.veryfyLogin);
     router.delete('/usuarios/:id', usuariosController.eliminaUsuario);
 
 
