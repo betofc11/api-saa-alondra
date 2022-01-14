@@ -67,6 +67,7 @@ exports.creaUsuario = async (req, res, next) => {
         : {
           error: "Password or username incorrect",
         };
+        console.log(passwordHashed)
       const usuarioInserted = await prisma.usuario.create({
         data: {
           usuario: usuario,
