@@ -4,7 +4,7 @@ const config = require("./config.json");
 
 
 //Consiguiendo el puerto
-const PORT = process.env.PORT ||4000;
+const PORT = process.env.PORT || 4000;
 
 //Creando el servidor
 const app = express();
@@ -13,7 +13,9 @@ const app = express();
 // HABILITAR BODYPARSER 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
     next();
 })
 app.use(express.json());
