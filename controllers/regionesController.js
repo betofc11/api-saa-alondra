@@ -21,7 +21,10 @@ exports.obtieneRegionById = async (req, res, next) => {
         const regiones = await prisma.region.findUnique({
             where: {
                 idregion: id
-            }
+            },
+            include: {
+                casa: true
+            } 
         });
         res.json(regiones);
     } catch (e) {

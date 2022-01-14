@@ -3,13 +3,13 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 exports.obtieneCasas = async (req, res, next) => {
-     try {
-         const casas = await prisma.casa.findMany();
-         res.json(casas);
-     } catch (e) {
+    try {
+        const casas = await prisma.casa.findMany();
+        res.json(casas);
+    } catch (e) {
         console.error('ERROR:',e.message); 
         res.json({ error: 'ERROR: ' + e.message });
-     }
+    }
 }
 
 exports.obtieneCasaById = async (req, res, next) => {
