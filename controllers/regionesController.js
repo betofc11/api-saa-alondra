@@ -4,7 +4,11 @@ const prisma = new PrismaClient();
 
 exports.obtieneRegiones = async (req, res, next) => {
     try {
-        const regiones = await prisma.region.findMany();
+        const regiones = await prisma.region.findMany({
+            include: {
+                casa: true
+            }
+        });
         res.json(regiones);
     } catch (e) {
         console.log(e.message);
@@ -24,7 +28,7 @@ exports.obtieneRegionById = async (req, res, next) => {
             },
             include: {
                 casa: true
-            } 
+            }
         });
         res.json(regiones);
     } catch (e) {
@@ -62,11 +66,11 @@ exports.agregaRegion = async (req, res, next) => {
 exports.editaRegion = async (req, res, next) => {
     try {
         const { nombre, idregion } = req.body;
-        const region = await prisma.region.update({ 
-            where:{
+        const region = await prisma.region.update({
+            where: {
                 idregion: idregion
             },
-            data:{
+            data: {
                 nombre: nombre
             }
         });
@@ -82,8 +86,8 @@ exports.editaRegion = async (req, res, next) => {
 exports.eliminaRegion = async (req, res, next) => {
     try {
         const id = parseInt(req.params.idregion);
-        const region = await prisma.region.delete({ 
-            where:{
+        const region = await prisma.region.delete({
+            where: {
                 idregion: id
             }
         });
