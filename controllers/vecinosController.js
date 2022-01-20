@@ -6,13 +6,13 @@ const prisma = new PrismaClient();
 
 exports.agregaVecino = async (req, res, next) => {
     try {
-        let { nombre, primerapellido, segundoapellido, cedula, fallecido, fechanac, casa, email, trabaja, telefono, vecinoslist } = req.body;
+        let { nombre, primerapellido, segundoapellido, cedula, fallecido, fechanac, idcasa, email, trabaja, telefono, vecinoslist } = req.body;
         if (!!vecinoslist) {
             const vecino = await prisma.vecino.createMany({
                 data: vecinoslist
             });
             res.json(vecino);
-        } else if (fallecido != null && casa != null && trabaja != null && nombre != null && primerapellido != null && cedula != null) {
+        } else if (fallecido != null && idcasa != null && trabaja != null && nombre != null && primerapellido != null && cedula != null) {
 
             const vecino = await prisma.vecino.create({
                 data: {
@@ -22,7 +22,7 @@ exports.agregaVecino = async (req, res, next) => {
                     cedula: cedula,
                     fallecido: fallecido,
                     fechanac: fechanac,
-                    idcasa: casa,
+                    idcasa: idcasa,
                     email: email,
                     trabaja: trabaja,
                     telefono: telefono
@@ -31,12 +31,11 @@ exports.agregaVecino = async (req, res, next) => {
             res.json(vecino);
         } else {
             next();
-            throw 'ERROR';
         }
     } catch (e) {
         console.log(e.message);
         res.json({ mensaje: "Ocurrio un error: " + e.message });
-        next();
+        next(e);
     }
 }
 
