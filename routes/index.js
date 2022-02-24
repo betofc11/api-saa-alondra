@@ -56,7 +56,7 @@ module.exports = () => {
     router.delete('/usuarios/:id', usuariosController.eliminaUsuario);
 
     // CORREO METHODS -----------------------------
-    router.post('/email', emailController.enviarCorreo);
+    router.post('/email/', emailController.enviarCorreo);
 
 
     return router;
