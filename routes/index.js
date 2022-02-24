@@ -5,6 +5,7 @@ const vecinosController = require('../controllers/vecinosController');
 const regionesController = require('../controllers/regionesController');
 const casasController = require('../controllers/casasController');
 const usuariosController = require('../controllers/usuariosController');
+const emailController = require('../controllers/emailController');
 
 module.exports = () => {
 
@@ -53,6 +54,9 @@ module.exports = () => {
     router.post('/usuarios/login', usuariosController.iniciaSesion);
     router.post('/usuarios/islogged', usuariosController.veryfyLogin);
     router.delete('/usuarios/:id', usuariosController.eliminaUsuario);
+
+    // CORREO METHODS -----------------------------
+    router.post('/email', emailController.enviarCorreo);
 
 
     return router;
