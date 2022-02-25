@@ -2,5 +2,9 @@
     "DB": "**",
     "TOKEN_TEXT": "vbdffiudvnevghidbvldvbeyrgbv",
     "EMAIL_CORREO": "betoamsterdamxd@gmail.com",
-    "EMAIL_PASS": "Playstation4"
+    "EMAIL_PASS": "Playstation4",
+    "CLIENT_ID": "1024163420640-38mghopk4r1rg299jd7kp71dk5sq62p5.apps.googleusercontent.com",
+    "CLIENT_SECRET": "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",
+    "REDIRECT_URI": "https://developers.google.com/oauthplayground",
+    "REFRESH_TOKEN": "1//04RvHYBAcT265CgYIARAAGAQSNwF-L9IrGulQMaaP9Gm7-qN0fnYSKLV9kLiKxh7SRURIRWuh3WKWszGatixbRukxKowm_pAmcDg"
 }

@@ -1,17 +1,34 @@
 const nodemailer = require('nodemailer');
+const { google } = require('googleapis');
 const config = require('../config.json');
 const { verifyToken } = require("../helpers/jwt_helper");
+
+
 const myEmail = config.EMAIL_CORREO;
+const CLIENT_ID = config.CLIENT_ID
+const CLIENT_SECRET = config.CLIENT_SECRET
+const REDIRECT_URI = config.REDIRECT_URI
+const REFRESH_TOKEN = config.REFRESH_TOKEN
 
+const userAuth2 = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
 
+userAuth2.setCredentials({ refreshToken: REFRESH_TOKEN})
+const accessToken = async () => {
+    return await userAuth2.getAccessToken()
+}
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
+        type: 'OAuth2',
         user: myEmail,
-        pass: config.EMAIL_PASS
+        clientId: CLIENT_ID,
+        clientSecret: CLIENT_SECRET,
+        refreshToken: REFRESH_TOKEN,
+        accessToken: accessToken
     }
 });
+
 
 exports.enviarCorreo = (req, res, next) => {
     try {
